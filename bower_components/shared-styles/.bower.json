@@ -1,0 +1,31 @@
+{
+  "name": "shared-styles",
+  "authors": [
+    "David Mann"
+  ],
+  "description": "Shared styles for web templates",
+  "main": "box-model.less",
+  "homepage": "https://github.com/davemn/shared-styles",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3",
+    "font-awesome": "~4"
+  },
+  "_release": "87190f30e3",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "87190f30e3be7b3f21bafa83c0b2c00c205e890c"
+  },
+  "_source": "https://github.com/davemn/shared-styles.git",
+  "_target": "*",
+  "_originalSource": "https://github.com/davemn/shared-styles.git",
+  "_direct": true
+}

@@ -1,0 +1,142 @@
+/* ================================================================ */
+/* Variables */
+/* ================================================================ */
+
+// Increase desktop breakpoint. Forces display of medium-sized layout
+// on most common department monitor resolution (1280x1024). Widescreen
+// monitors (including laptops) will still display large-sized layout.
+@screen-lg-min: 1400px;
+
+@grid-gutter-width: 16px;   // Bootstrap override
+@box-gutter : @grid-gutter-width;
+@box-padding: 22px;
+
+/* ================================================================ */
+/* At-rules */
+/* ================================================================ */
+
+// - None specified ---
+
+/* ================================================================ */
+/* Mixins */
+/* ================================================================ */
+
+.make-img-constraint(@percent) {
+  display: block;
+  width: e("@{percent}%");
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* ================================================================ */
+/* Elements */
+/* ================================================================ */
+
+footer {
+  padding-bottom: (1.5*@navbar-height);
+}
+
+header:first-of-type {   // match header styles to <section>
+  padding-top: (1.5*@navbar-height);   // leave space for fixed navbar
+}
+
+h1,h2,h3,h4,h5,h6 {
+  overflow: hidden;   // headers are block elements in Bootstrap, so make sure they contain their contents
+}
+
+h1, h2, h3 {
+  margin-top: 0px;
+}
+
+section {
+  padding-top: (1.5*@navbar-height);   // leave space for fixed navbar
+  padding-bottom: (1.5*@navbar-height);
+}
+
+/* ================================================================ */
+/* Classes */
+/* ================================================================ */
+
+.box {
+  overflow: hidden;
+  padding-top   : @box-padding;
+  padding-bottom: @box-padding;
+  padding-left  : @box-gutter;
+  padding-right : @box-gutter;
+  &.box-tall {
+    padding-bottom: (8*@box-padding);
+  }
+  & > *:last-child { margin-bottom: 0px; }
+}
+
+.media-object {
+  width: 64px;   // force width in case of under/oversized images
+}
+
+.navbar {
+  .dropdown-menu {
+    width: 250px;
+  }
+}
+
+.row {
+  padding-top: 0px;
+  padding-bottom: @grid-gutter-width;
+}
+
+.tab-pane {
+  margin-top: @grid-gutter-width;
+}
+
+/* ================================================================ */
+/* Everything else */
+/* ================================================================ */
+
+// Add scrolling to Bootstrap list-groups
+div.list-group.list-group-scroll-long {
+  overflow-y: scroll;
+  max-height: (24*@line-height-computed);
+}
+  
+div.list-group.list-group-scroll-short {
+  overflow-y: scroll;
+  max-height: (12*@line-height-computed);
+}
+
+img.img-contain {
+  width: 100%;
+}
+img.img-navbar {
+  vertical-align: top;
+  height: 100%;
+}
+
+video.video-contain { 
+  width: 100% 
+}
+
+img.img-constrain    { .make-img-constraint(50); }
+img.img-constrain-25 { .make-img-constraint(25); }
+img.img-constrain-33 { .make-img-constraint(33); }
+img.img-constrain-50 { .make-img-constraint(50); }
+img.img-constrain-66 { .make-img-constraint(66); }
+img.img-constrain-75 { .make-img-constraint(75); }
+
+img.img-constrain-right {
+  display: block;
+  width: 50%;
+  margin-left: 40%;
+}
+
+.infographic.infographic-callout {
+  h1 {
+    height: 110px;
+    width: 110px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+
+.row:not(:first-child) {   // shrink shared styles row spacing
+  padding-top: @grid-gutter-width;
+}

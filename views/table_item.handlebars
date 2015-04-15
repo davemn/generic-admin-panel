@@ -1,0 +1,20 @@
+<td>
+  {{#if file_id}}
+  <a target='_blank' href='rest/attachments/{{file_id}}.pdf'>
+    <span class="fa-stack">
+      <i class="fa fa-circle fa-stack-2x"></i>
+      <i class="fa fa-download fa-stack-1x"></i>
+    </span>
+  </a>
+  {{else}}
+  <a href='#'>
+    <span class="fa-stack">
+      <i class="fa fa-ban fa-stack-2x"></i>
+      <i class="fa fa-download fa-stack-1x"></i>
+    </span>
+  </a>  
+  {{/if}}
+  {{project}}
+</td>
+<td>{{owner}}</td>
+<td>{{date}}</td>

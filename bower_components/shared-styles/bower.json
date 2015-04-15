@@ -1,0 +1,22 @@
+{
+  "name": "shared-styles",
+  "version": "1.0.0",
+  "authors": [
+    "David Mann"
+  ],
+  "description": "Shared styles for web templates",
+  "main": "box-model.less",
+  "homepage": "https://github.com/davemn/shared-styles",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3",
+    "font-awesome": "~4"
+  }
+}

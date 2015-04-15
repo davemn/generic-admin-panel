@@ -1,0 +1,123 @@
+@import "../bower_components/bootstrap/less/bootstrap.less";
+@import "../bower_components/font-awesome/less/font-awesome.less";
+
+/* ================================================================ */
+/* Box Model                                                        */
+/* - Any style that affects spacing of elements. Includes flags     */
+/* - like absolute positioning, hidden overflow.                    */
+/* ================================================================ */
+@import "../bower_components/shared-styles/box-model.less";
+
+section {
+  padding-top: @grid-gutter-width;
+  padding-bottom: @grid-gutter-width;
+}
+
+// .container {
+//   width: (@container-md + 100px) !important;
+// }
+
+// .container-fluid {
+//   padding-left:  (2 * @grid-gutter-width);
+//   padding-right: (2 * @grid-gutter-width);
+// }
+
+section.section-condensed {
+  padding-top: 0px;
+  padding-bottom: 0px;
+  h1 { 
+    display: inline-block; 
+    margin-top: 10px;
+  }
+  .row { padding-bottom: 0px; }
+  // i.fa {
+  //   margin-left:  8px;
+  //   margin-right: 8px;
+  // }
+}
+
+h1.h1-details + hr {
+  margin-top: 0px;
+}
+
+/* ================================================================ */
+/* Text                                                             */
+/* ================================================================ */
+@import "../bower_components/shared-styles/text.less";
+
+.panel-title { text-align: center; }
+
+section.section-condensed {
+  h1 { font-size: 30px; }
+}
+
+a {
+  text-decoration: none;
+  &:hover { text-decoration: none; }
+}
+
+/* ================================================================ */
+/* Theme                                                            */
+/* ================================================================ */
+@import "../bower_components/shared-styles/theme.less";
+
+@brand-danger: @rose-madder;
+@hr-border: @gray-light;
+@link-color: @text-color;
+@link-hover-color: @burnt-sienna;
+
+.texture-primary {
+  background-image: url("img/stripes.png");
+  background-repeat: repeat;
+}
+
+.texture-title {
+  background-image: url("img/stripes.png"), url("img/dmv-logo.png");
+  background-repeat: repeat, no-repeat, ;
+  background-position: top left, center center;
+}
+
+// table.dataTable tbody tr.selected {
+//   background-color: @gray-light;
+// }
+
+tr.highlight {
+  background-color: @gray-light !important;
+}
+
+
+// Hide background circle normally, on hover: show background circle, invert front icon
+a {
+  .fa-stack {
+    i.fa.fa-circle {
+      display: none;
+    }
+    i.fa.fa-ban {
+      color: @burnt-sienna;
+    }
+    i.fa.fa-circle, i.fa.fa-download {
+      color: @cerulean-blue;
+    }
+  }
+  
+  .fa-stack:hover {
+    i.fa.fa-circle {
+      display: inline-block;
+    }
+    i.fa.fa-circle + i.fa.fa-download {
+      color: @fa-inverse;
+    }
+    i.fa.fa-ban + i.fa.fa-download {
+      color: @burnt-sienna;
+    }
+  }
+}
+
+section#section-iconbar {
+  background-color: @gray-lighter;
+  border-bottom: 1px solid @gray-light;
+}
+
+div[class|="col"]#col-details {
+  background-color: @gray-lighter;
+}

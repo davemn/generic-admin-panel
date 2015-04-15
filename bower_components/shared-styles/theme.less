@@ -1,0 +1,309 @@
+/* ================================================================ */
+/* Variables */
+/* ================================================================ */
+
+// DMV palette, Sorted by luma value, dark to light
+@dark-brown       : #432c17; // 1
+@dark-red-brown   : #572314; // 2 
+@dark-blue        : #0f5478; // 3 
+@dark-gray-green  : #4f5a50; // 4 
+@taupe            : #745d3c; // 5 
+@burnt-sienna     : #b1460f; // 6 
+@brown            : #94612e; // 7 
+@purple-pink      : #a66163; // 8 
+@medium-dark-blue : #4278bb; // 9 
+@warm-gray        : #7a7a7a; // 10
+@rose-madder      : #da5652; // 11
+@orange           : #f54f1e; // 12
+@cerulean-blue    : #468dcb; // 13
+@seafoam-green    : #63a182; // 14
+@medium-gray-green: #8f9a79; // 15
+@raw-sienna       : #ce8d38; // 16
+@lime-green       : #8bb354; // 17
+@light-green      : #7ec247; // 18
+@light-blue       : #82bcdb; // 19
+@yellow-ochre     : #ccb449; // 20
+@cool-gray        : #c7cde3; // 21
+@eggshell-white   : #e3dbb8; // 22
+@naples-yellow    : #f8e142; // 23
+@peach            : #f4debf; // 24
+@white-smoke      : #eaeaea; // 25
+
+// Grayscale equivalents of the above colors. Note these aren't 
+// just desaturated values of the corresponding colors. Each is 
+// a gray computed to have the same relative luminance as the 
+// corresponding color.
+// 
+// The computation is:
+// L_out = 0.2126*((R_in/255)^2.2) + 0.7152*((G_in/255)^2.2) + 0.0722*((B_in/255)^2.2)
+// @<color-name>-luma: rgb(L_out,L_out,L_out);
+
+@dark-brown-luma       : #313131;
+@dark-red-brown-luma   : #333333;
+@dark-blue-luma        : #4f4f4f;
+@dark-gray-green-luma  : #575757;
+@taupe-luma            : #616161;
+@burnt-sienna-luma     : #676767;
+@brown-luma            : #6c6c6c;
+@purple-pink-luma      : #747474;
+@medium-dark-blue-luma : #767676;
+@warm-gray-luma        : #7a7a7a;
+@rose-madder-luma      : #818181;
+@orange-luma           : #888888;
+@cerulean-blue-luma    : #888888;
+@seafoam-green-luma    : #949494;
+@medium-gray-green-luma: #969696;
+@raw-sienna-luma       : #9a9a9a;
+@lime-green-luma       : #a6a6a6;
+@light-green-luma      : #b0b0b0;
+@light-blue-luma       : #b4b4b4;
+@yellow-ochre-luma     : #b4b4b4;
+@cool-gray-luma        : #cdcdcd;
+@eggshell-white-luma   : #dadada;
+@naples-yellow-luma    : #dfdfdf;
+@peach-luma            : #e1e1e1;
+@white-smoke-luma      : #eaeaea;
+
+// Override Bootstrap's default grays
+@gray-darker : @taupe-luma;
+@gray-dark   : @warm-gray-luma;
+@gray        : @medium-gray-green-luma;
+@gray-light  : @yellow-ochre-luma;
+@gray-lighter: @white-smoke-luma;
+
+
+// Override Bootstrap's default accent colors
+@brand-primary: @cerulean-blue;
+@brand-success: @dark-red-brown-luma;
+@brand-info   : @taupe-luma;
+@brand-warning: @cool-gray-luma;
+@brand-danger : @light-green-luma;
+
+// Default section styles
+@header-bg  : #fff;
+@section-bg : #fff;
+@footer-bg  : #000;
+
+// Uncouple text/link colors from brand variable(s)
+@text-color: @dark-blue-luma;
+@link-color: @cerulean-blue;
+@link-hover-color: @cerulean-blue;
+
+@hr-border: @text-color;
+
+// Path to images used by shared styles. This path is relative
+// to your final compiled CSS file.
+@shared-styles-img-path: "bower_components/shared-styles/img";
+
+/* ================================================================ */
+/* At-rules */
+/* ================================================================ */
+
+// - None specified ---
+
+/* ================================================================ */
+/* Mixins */
+/* ================================================================ */
+.make-skin(@bkg-color; @head-color; @body-color) {
+  background-color: @bkg-color;
+  h1, h2, h3, h4, h5, h6 { color: @head-color; }
+  p {
+    color: @body-color;
+    a { color: @body-color; }
+  }
+  ul {
+    color: @body-color;
+    a { color: @body-color; }
+  }
+  dl {
+    dt { 
+      color: @head-color; 
+      a { color: @head-color; }
+    }
+    dd { color: fadeout(@body-color, 25%); }
+  }
+  hr {
+    border-color: @body-color;
+  }
+  i.fa { color: @head-color; }   // for Font-Awesome icon containers
+}
+
+.make-box-skin(@skin-name; @color; @bg-color){
+  .box.@{skin-name} {
+    // background-color: @bg-color;
+    // h1, h2, h3, h4, h5, h6, li, p { color: @color; }
+    .make-skin(@bg-color, @color, @color);
+  }
+}
+
+// E.g. - .make-footer-skin(footer-transition, 480px, "img/skyline-01b.png", "img/skyline-01b-helper.png", @gray-light);
+.make-footer-skin(@skin-name; @fg-height; @fg-filename; @fg-divider-filename; @bg) when (iscolor(@bg)){
+  footer.@{skin-name} {
+    background-image: url('@{fg-filename}'), url('@{fg-divider-filename}');
+    background-repeat: no-repeat, repeat-x;
+    background-position: center bottom, left bottom;
+    background-size: contain, contain;
+    background-color: @bg;
+  }
+}
+// E.g. - .make-footer-skin(footer-transition, 480px, "img/skyline-01b.png", "img/skyline-01b-helper.png", "img/green-cup.png");
+.make-footer-skin(@skin-name; @fg-height; @fg-filename; @fg-divider-filename; @bg) when (isstring(@bg)){
+  footer.@{skin-name} {
+    background-image: url('@{fg-filename}'), url('@{fg-divider-filename}'), url('@{bg}');
+    background-repeat: no-repeat, repeat-x, repeat;
+    background-position: center bottom, left bottom, center top;
+    background-size: contain, contain, auto;
+  }
+}
+// Styles shared between all skinned footers
+.make-footer-skin(@skin-name; @fg-height; @fg-filename; @fg-divider-filename; @bg){
+  footer.@{skin-name} {
+    min-height: @fg-height;
+    padding-bottom: 0px;
+  }
+}
+
+// E.g. - .make-header-skin(header-transition, 480px, "img/skyline-01b.png", "img/skyline-01b-helper.png", @gray-light);
+.make-header-skin(@skin-name; @fg-height; @fg-filename; @fg-divider-filename; @bg) when (iscolor(@bg)){
+  header.@{skin-name} {
+    background-image: url('@{fg-filename}'), url('@{fg-divider-filename}');
+    background-repeat: no-repeat, repeat-x;
+    background-position: center top, left top;
+    background-size: contain, contain;
+    background-color: @bg;
+  }
+}
+
+// Styles shared between all skinned headers
+.make-header-skin(@skin-name; @fg-height; @fg-filename; @fg-divider-filename; @bg){
+  header.@{skin-name} {
+    min-height: @fg-height;
+    padding-top: 0px;
+  }
+}
+
+/* ================================================================ */
+/* Elements */
+/* ================================================================ */
+
+header {
+  background-color: @header-bg;
+}
+
+section {
+  background-color: @section-bg;
+}
+
+footer {
+  background-color: @footer-bg;
+  color: difference(@footer-bg, #fff);   // invert footer bg for text color
+}
+
+// Override <hr/> styles to require themes
+hr {
+  border-width: 0px;   // reset any widths except top (Bootstrap's default)
+  border-top: 1px solid @hr-border;   // in case you forget to use .hr-default
+  
+  &.hr-default {
+    border-top: 1px solid @hr-border;
+  }
+  &.hr-inverse {
+    border-top: 1px solid difference(@hr-border, #fff);
+  }
+  &.hr-gray-light {
+    border-top: 1px solid #d9d9d9;
+  }
+}
+
+/* ================================================================ */
+/* Classes */
+/* ================================================================ */
+
+.box {   // Default box theme (transparent bg, dark gray text)
+  .make-skin(transparent, @text-color, @text-color);
+}
+
+// Add theme-ing to vertical rule
+.col-vr {   // Single pixel, black, vertical rule (border)
+  background-repeat: repeat-y;
+  background-position: left top;
+
+  &.col-vr-default {
+    background-image: url("@{shared-styles-img-path}/vr.png");
+  }
+  &.col-vr-inverse {
+    background-image: url("@{shared-styles-img-path}/vr-inverse.png");
+  }
+}
+
+/* ================================================================ */
+/* Everything else */
+/* ================================================================ */
+
+.make-box-skin(box-default, @text-color, transparent);
+.make-box-skin(box-primary, #fff, @brand-primary);
+.make-box-skin(box-success, #fff, @brand-success);
+.make-box-skin(box-info,    #fff, @brand-info);
+.make-box-skin(box-warning, #fff, @brand-warning);
+.make-box-skin(box-danger,  #fff, @brand-danger);
+.make-box-skin(box-light, #000, #fff);
+.make-box-skin(box-dark, #fff, #000);
+
+.make-box-skin(box-on-light-bg, #000, transparent);
+.make-box-skin(box-on-dark-bg, #fff, transparent);
+
+.make-box-skin(box-gray-lighter, @text-color, @white-smoke);
+
+// Convention over configuration: don't require the use of a mixin to include the header/footer.
+.make-footer-skin(footer-transition, 480px, "@{shared-styles-img-path}/footer.png", "@{shared-styles-img-path}/footer-spacer.png", #fff);
+.make-header-skin(header-transition, 213px, "@{shared-styles-img-path}/header.png",  "@{shared-styles-img-path}/header-spacer.png", @white-smoke);
+
+article[class|="col"] {
+  &.col-4-bordered, &.col-6-bordered {
+    border: 1px solid @panel-default-border;
+  }
+}
+article[class|="col"].col-6-bordered {
+  &:nth-child(even) { border-left-width: 0px; }
+  &:nth-child(n+3)  { border-top-width: 0px; }
+  
+  &:nth-child(even) { border-right-width: 0px; }
+  &:nth-child(odd) { border-left-width: 0px; }
+  &:nth-last-child(-n+2) { border-bottom-width: 0px; }
+  border-top-width: 0px;
+}
+article[class|="col"].col-4-bordered {
+  // // 2,3 5,6 8,9 or NOT 1,4,7,10
+  &:not(:nth-of-type(3n+1)) { border-left-width: 0px; }
+  &:nth-of-type(n+4)  { border-top-width: 0px; }
+    
+  // 1, 4, 7, 10
+  &:nth-child(3n+1) { border-left-width: 0px; }
+
+  // 3, 6, 9, 12
+  &:nth-child(3n) { border-right-width: 0px; }
+  
+  &:nth-last-child(-n+3) { border-bottom-width: 0px; }
+  border-top-width: 0px;
+}
+
+section.section-fade {
+  #gradient > .vertical(@white-smoke; #fff);
+}
+
+.btn.btn-dmv-primary {
+  .button-variant(#fff; @light-green; @light-green);
+  i.fa { color: #fff; }
+}
+
+.btn.btn-dmv-secondary {
+  .button-variant(#fff; @cerulean-blue; @cerulean-blue);
+  i.fa { color: #fff; }
+}
+
+.infographic.infographic-callout {
+  h1 {
+    .bg-primary();
+    border-radius: 50%;
+  }
+}

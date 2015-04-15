@@ -1,0 +1,19 @@
+{
+  "name": "generic-admin-panel",
+  "version": "1.0.0",
+  "homepage": "https://github.com/davemn/generic-admin-panel",
+  "authors": [
+    "David Mann"
+  ],
+  "description": "Bower packages needed for this admin page template.",
+  "private": true,
+  "dependencies": {
+    "bootstrap": "~3.3.4",
+    "font-awesome": "~4.3.0",
+    "backbone": "~1.1.2",
+    "handlebars": "~3.0.0",
+    "html5shiv": "~3.7.2",
+    "respond": "~1.4.2",
+    "shared-styles": "https://github.com/davemn/shared-styles.git"
+  }
+}
