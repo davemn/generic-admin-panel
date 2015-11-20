@@ -51,4 +51,72 @@ You'll need:
 * [Bower](http://bower.io/) - to manage our page's dependencies.
 * [Grunt](http://gruntjs.com/) - for specifying and executing our build process. We'll be including other libraries through our Gruntfile, but Grunt will install them for us.
 
+## Structure
+
+Like any [Backbone](http://backbonejs.org/) application, this one starts with a model and a set of nested views.
+
+### Structure - Frontend Model
+
+A data model is a fundamental part of every application.
+Complex applications define [multiple entities / classes](https://en.wikipedia.org/wiki/Conceptual_schema), with relationships between each.
+
+For the sake of simplicity, the Generic Admin Panel web application describes exactly one entity - `ChangeRequestModel`.
+`ChangeRequestModel` is meant to be an **example** entity in your application's problem domain.
+You should alter its name and attributes to fit your needs.
+
+As it is defined in the application out-of-the-box, the `ChangeRequestModel` entity has the following attributes:
+
+* `external_id` - An identifier to match this record to one in an external system. Use if you're tracking entities that originate in a parent [system of record](https://en.wikipedia.org/wiki/System_of_record).
+* `file_id` - The MD5 sum of the file associated with this record.
+* `area`
+* `project`
+* `type` - E.g. "Router Configuration". **Not** used to track any data type.
+* `date` - M/D/YY
+* `owner`
+* `agency`
+* `priority`
+* `status`
+* `result`
+* `category`
+
+### Structure - Frontend Model Persistence
+
+To interface with the persistence layer (see below), I'm overriding Backbone's [sync method](http://backbonejs.org/#Sync) on the `ChangeRequestModel` entity.
+From Backbone's documentation:
+
+> The default sync handler maps CRUD to REST like so:
+> 
+> create -> POST `/collection`
+> read   -> GET `/collection[/id]`
+> update -> PUT `/collection/id`
+> ~~patch  -> PATCH `/collection/id`~~
+> delete -> DELETE `/collection/id`
+
+As you can see, I'm not supporting the `PATCH` HTTP verb for the time being.
+
+Each action is mapped to a method on `ChangeRequestModel`:
+
+Action | Method
+------ | ------
+create | `ChangeRequestModel::serverCreate()`. Uses the [`FormData`](https://developer.mozilla.org/en-US/docs/Web/API/FormData) browser API to POST  `multipart/form-data` requests, including a `_payload_` section (holds JSON of the model's attributes) and an optional `attachment` section (holds a single binary file attachment).
+read   | Uses the default `Model::sync()` implementation.
+update | `ChangeRequestMode::serverUpdate() | serverUpdateWithAttachment()`. PUTs `application/json` requests, whose body is a JSON representation of the model, with an optional `"attachment"` key mapping to a data URL encoding of the file attachment (see [`FileReader::readAsDataURL()`](https://developer.mozilla.org/en-US/docs/Web/API/FileReader/readAsDataURL).
+delete | Uses the default `Model::sync()` implementation.
+    
+Ultimately, communication with the persistence layer can be as simple or complex as you'd like.
+In particular, the verbs you support and the format of your HTTP requests are both choices you'll have to make.
+
+* The verbs you support depend on how much of CRUD you'd like to implement.
+* The format of your HTTP requests depends on your opinion on how REST should be implemented. Using plain JSON request bodies, for example, you can use Backbone's sync method without modification. 
+
+The solution I've reached above attempts to add support for file uploads, while still being true to the Backbone API and RESTful principles.
+That's why I've opted to use `multipart/form-data` requests for the `POST` verb, but `application/json` requests for `PUT`.
+
+### Structure - Backend Model Persistence
+
+Out of the box, your model is persisted to server-side storage using a simple RESTful web service.
+I do mean simple - a PHP script performs CRUD operations on a single JSON file.
+The web service is contained entirely in the `rest/` directory of this repo.
+[Take a look](https://github.com/davemn/generic-admin-panel/tree/master/rest), it has its own README.
+
 ## More to Come!
