@@ -85,13 +85,16 @@ To interface with the persistence layer (see below), I'm overriding Backbone's [
 From Backbone's documentation:
 
 > The default sync handler maps CRUD to REST like so:
-> Action | Verb
-> --- | ---
-> create | POST `/collection`
-> read | GET `/collection[/id]`
-> update | PUT `/collection/id`
-> ~~patch | PATCH `/collection/id`~~
-> delete | DELETE `/collection/id`
+> 
+> create -> POST `/collection`
+> 
+> read -> GET `/collection[/id]`
+> 
+> update -> PUT `/collection/id`
+> 
+> ~~patch -> PATCH `/collection/id`~~
+> 
+> delete -> DELETE `/collection/id`
 
 As you can see, I'm not supporting the `PATCH` HTTP verb for the time being.
 
